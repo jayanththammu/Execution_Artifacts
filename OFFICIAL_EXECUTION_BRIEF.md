@@ -578,13 +578,12 @@ System 4: Team Configuration
 
 1. **validator_output.log** — Full configuration validation (all sections valid)
 
-## Summary Artifacts (5 files)
+## Summary Artifacts (4 files)
 
 1. **SYSTEM_1_SUMMARY.md** — Claims Intake detailed analysis
 2. **SYSTEM_2_SUMMARY.md** — Multi-Shift detailed analysis
 3. **SYSTEM_3_SUMMARY.md** — Context Strategy detailed analysis
 4. **OFFICIAL_EXECUTION_BRIEF.md** — This document
-5. **HARNESS_ENGINEERING_PROJECT_COMPLETION_REPORT.md** — Course overview
 
 ---
 
@@ -675,6 +674,5 @@ The course demonstrates enterprise-grade patterns for:
 - System 2 Summary: `/voc/work/EXECUTION_ARTIFACTS/system2-runs/SYSTEM_2_SUMMARY.md`
 - System 3 Artifacts: `/voc/work/EXECUTION_ARTIFACTS/system3-artifacts/`
 - System 4 Validator: `/voc/work/EXECUTION_ARTIFACTS/system4-validator/`
-- Course Report: `/voc/work/HARNESS_ENGINEERING_PROJECT_COMPLETION_REPORT.md`
 
 **End of Report**
