@@ -10,7 +10,7 @@
 ## ARTIFACT STRUCTURE
 
 ```
-/voc/work/EXECUTION_ARTIFACTS/
+/EXECUTION_ARTIFACTS/
 ├── OFFICIAL_EXECUTION_BRIEF.md          [Main Report]
 ├── ARTIFACT_INDEX.md                     [This file]
 │
@@ -56,15 +56,6 @@
   - Artifact inventory
   - Recommendations
 
-#### HARNESS_ENGINEERING_PROJECT_COMPLETION_REPORT.md
-- **Type:** Course Documentation
-- **Size:** ~35 KB
-- **Purpose:** Detailed course structure and implementation guide
-- **Contents:**
-  - Project overview
-  - 15 exercise descriptions
-  - Key code patterns
-  - Getting started guide
 
 ### SYSTEM 1: CLAIMS INTAKE AGENT
 
@@ -272,20 +263,19 @@
 
 ```bash
 # System 1
-ls -la /voc/work/EXECUTION_ARTIFACTS/system1-traces/
+ls -la /EXECUTION_ARTIFACTS/system1-traces/
 
 # System 2
-ls -la /voc/work/EXECUTION_ARTIFACTS/system2-runs/
+ls -la /EXECUTION_ARTIFACTS/system2-runs/
 
 # System 3
-ls -la /voc/work/EXECUTION_ARTIFACTS/system3-artifacts/
+ls -la /EXECUTION_ARTIFACTS/system3-artifacts/
 
 # System 4
-ls -la /voc/work/EXECUTION_ARTIFACTS/system4-validator/
+ls -la /EXECUTION_ARTIFACTS/system4-validator/
 
 # Main documents
-ls -la /voc/work/EXECUTION_ARTIFACTS/*.md
-ls -la /voc/work/HARNESS_ENGINEERING_PROJECT_COMPLETION_REPORT.md
+ls -la /EXECUTION_ARTIFACTS/*.md
 ```
 
 ---
@@ -307,12 +297,8 @@ ls -la /voc/work/HARNESS_ENGINEERING_PROJECT_COMPLETION_REPORT.md
 
 ### For Architects
 
-1. **Read:** `HARNESS_ENGINEERING_PROJECT_COMPLETION_REPORT.md`
-   - Course structure
-   - Architecture patterns
-   - Key takeaways per project
 
-2. **Deep Dive:** System-specific summaries
+1. **Deep Dive:** System-specific summaries
    - `system1-traces/SYSTEM_1_SUMMARY.md`
    - `system2-runs/SYSTEM_2_SUMMARY.md`
    - Similar for 3 & 4
