@@ -1,0 +1,80 @@
+{
+  "shift_id": "SHIFT-2026-04-30-A",
+  "start_time": "2026-04-30T06:00:00Z",
+  "end_time": "2026-04-30T14:00:00Z",
+  "shift_name": "Shift A (Morning)",
+  "operator": "Jane Smith",
+  "facility": "Manufacturing Plant 1",
+  "hot_state_snapshot": {
+    "recent_defect_hashes": [
+      "hash_2026_04_30_001_capacitor_c7",
+      "hash_2026_04_30_002_pump_a2",
+      "hash_2026_04_30_003_bearing_m5",
+      "hash_2026_04_30_004_motor_d3",
+      "hash_2026_04_30_005_capacitor_c7",
+      "hash_2026_04_30_006_pump_a2",
+      "hash_2026_04_30_007_belt_e1",
+      "hash_2026_04_30_008_capacitor_c7",
+      "hash_2026_04_30_009_sensor_f2",
+      "hash_2026_04_30_010_valve_g4"
+    ],
+    "current_shift_summary": "Shift A 2026-04-30: 10 defects detected (6 low, 3 medium, 1 high). Capacitor bank C-7 showing elevated defect rate (3 defects this shift). Pump A-2 operational. Investigation recommended for C-7.",
+    "active_alerts": [
+      "⚠️  CAPACITOR-BANK-C-7: 3 defects in 8 hours (elevated night-shift pattern)",
+      "ℹ️  PUMP-A-2: 2 defects (scheduled inspection pending)",
+      "✓ MOTOR-D-3: 1 defect (resolved, backpressure normalized)"
+    ],
+    "threshold_statuses": {
+      "defect_rate_per_shift": "WARN",
+      "critical_count_24h": "OK",
+      "capacitor_bank_defects_8h": "ALERT",
+      "pump_efficiency": "NORMAL",
+      "bearing_m5_vibration": "OK"
+    }
+  },
+  "warm_store_statistics": {
+    "total_defects_this_shift": 10,
+    "total_defects_24h": 28,
+    "defects_by_severity": {
+      "low": 6,
+      "medium": 3,
+      "high": 1
+    },
+    "defects_by_component": {
+      "capacitor-bank-C-7": 3,
+      "pump-A-2": 2,
+      "bearing-M-5": 1,
+      "motor-D-3": 1,
+      "belt-E-1": 1,
+      "sensor-F-2": 1,
+      "valve-G-4": 1
+    },
+    "query_performance_ms": 1.23
+  },
+  "claude_invocation_summary": {
+    "total_invocations": 2,
+    "invocation_1": {
+      "timestamp": "2026-04-30T08:45:00Z",
+      "defects_analyzed": 5,
+      "findings": "Capacitor C-7 showing pattern. Recommend monitoring for temperature correlation.",
+      "input_tokens": 342,
+      "output_tokens": 124,
+      "duration_ms": 456
+    },
+    "invocation_2": {
+      "timestamp": "2026-04-30T12:30:00Z",
+      "defects_analyzed": 5,
+      "findings": "Elevated defect cluster in C-7 continues. Consider thermal analysis.",
+      "input_tokens": 358,
+      "output_tokens": 89,
+      "duration_ms": 523
+    }
+  },
+  "manifest_checkpoint": {
+    "last_checkpoint": "processing_complete",
+    "last_processed_ts": "2026-04-30T14:00:00Z",
+    "defect_cursor": "hash_2026_04_30_010_valve_g4",
+    "findings_count": 7,
+    "recovery_eligible": true
+  }
+}

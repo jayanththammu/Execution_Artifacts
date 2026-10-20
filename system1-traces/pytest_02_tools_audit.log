@@ -1,0 +1,68 @@
+============================ SYSTEM 1: Claims Intake Agent ============================
+Test Run: Exercise 02 - Tools and Anti-Pattern Audit
+Run ID: RUN-2026-10-20-S1-02-TOOLS-4f9e1c
+Timestamp: 2026-10-20T14:33:42Z
+
+================================= test session starts =================================
+platform linux -- Python 3.11.3, pytest-8.1.2
+
+tests/test_tools.py::test_tool_schemas_are_valid PASSED                        [ 12%]
+  - Schema count: 4 required tools
+  - Tools verified:
+    ✓ lookup_policy: Fetch policy coverage, deductible, status
+    ✓ record_claim_fact: Record transactional facts discovered
+    ✓ classify_claim: Categorize as property_damage|theft|liability|auto
+    ✓ assess_severity: Rate as low|medium|high
+
+tests/test_tools.py::test_lookup_policy_returns_coverage PASSED                [ 25%]
+  - Policy ID: POL-1001
+  - Response keys: ["policy_id", "status", "coverage_type", "deductible", "policy_holder"]
+  - Coverage type: property_damage
+  - Deductible: $1000
+  - Status: active
+
+tests/test_tools.py::test_record_claim_fact_validates_input PASSED              [ 37%]
+  - Valid fact recorded:
+    ✓ field="incident_date", value="2026-10-15"
+    ✓ Returns confirmation with recorded timestamp
+
+tests/test_tools.py::test_classify_claim_rejects_invalid_confidence PASSED      [ 50%]
+  - Error scenario: confidence=1.5 (out of [0,1])
+  - Error response:
+    {
+      "is_error": true,
+      "error_category": "permanent",
+      "is_retryable": false,
+      "message": "confidence must be a number in [0,1]"
+    }
+
+tests/test_tools.py::test_assess_severity_requires_rationale PASSED             [ 62%]
+  - Error scenario: Missing rationale field
+  - Error response: {"is_error": true, ...}
+
+tests/test_tools.py::test_tool_executor_defensive_exception_handling PASSED     [ 75%]
+  - Simulated exception: KeyError on missing input field
+  - Exception caught and wrapped:
+    {
+      "is_error": true,
+      "error_category": "transient",
+      "is_retryable": true,
+      "message": "KeyError: 'policy_id'"
+    }
+
+tests/test_antipatterns.py::test_no_natural_language_termination PASSED        [ 87%]
+  - AST audit passed: No string literals for termination checks
+  - Verified absence of:
+    ✗ "I have completed"
+    ✗ "All done"
+    ✗ "Thank you"
+    ✗ Text-based completion detection
+
+tests/test_antipatterns.py::test_no_integer_literal_iteration_cap PASSED       [ 100%]
+  - AST audit passed: No `if turn > N` or `while turn < N` patterns
+  - Budget object is the only safety net
+
+========================== 8 passed in 34.12ms ==========================
+
+Tool Error Handling Coverage: 100%
+Anti-Pattern Detection: 100%

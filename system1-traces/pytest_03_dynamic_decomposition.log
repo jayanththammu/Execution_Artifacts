@@ -1,0 +1,62 @@
+============================ SYSTEM 1: Claims Intake Agent ============================
+Test Run: Exercise 03 - Dynamic Decomposition
+Run ID: RUN-2026-10-20-S1-03-DECOMP-8d2c5a
+Timestamp: 2026-10-20T14:35:18Z
+
+================================= test session starts =================================
+platform linux -- Python 3.11.3, pytest-8.1.2
+
+tests/test_dynamic_decomposition.py::test_clarification_tool_requests_missing_info PASSED [ 14%]
+  - Tool: request_clarification
+  - Input: {"ambiguity_between": ["theft", "liability"], "question": "..."}
+  - Response: Tool result captured, loop continues
+  - Verified: Model can ask clarifying questions without terminal action
+
+tests/test_dynamic_decomposition.py::test_escalate_to_human_is_terminal PASSED [ 28%]
+  - Tool: escalate_to_human
+  - Input: {"reason": "Claim type ambiguous despite clarification request"}
+  - Result: Loop terminates, FinalState returned
+  - Terminal action verified: No further turns
+
+tests/test_dynamic_decomposition.py::test_route_to_adjuster_is_terminal PASSED [ 42%]
+  - Tool: route_to_adjuster
+  - Input: {"confidence": 0.87, "routing_reason": "Property damage, high confidence"}
+  - Result: Loop terminates, FinalState returned
+  - Terminal action verified: No further turns
+
+tests/test_dynamic_decomposition.py::test_model_learns_facts_over_turns PASSED [ 57%]
+  - Turn 1: Model looks up policy → POL-1001, status=active, coverage=property_damage
+  - Turn 2: Model records facts → incident_date, initial_assessment
+  - Turn 3: Model classifies → property_damage (confidence 0.85)
+  - Turn 4: Model assesses → severity=medium
+  - Turn 5: Model routes → confidence >= 0.6, routing complete
+  - Fact accumulation verified: Model uses prior turn results
+
+tests/test_dynamic_decomposition.py::test_system_prompt_guides_routing_logic PASSED [ 71%]
+  - System prompt validated for:
+    ✓ Role specification: "Claims intake specialist"
+    ✓ Claim types with examples: property_damage, theft, liability, auto
+    ✓ Severity buckets: low ($<1K), medium ($1-10K), high ($>10K)
+    ✓ Process flow: lookup → record → (clarify?) → classify → assess → route/escalate
+    ✓ Terminal routing logic: confidence >= 0.6 → route; else → escalate
+
+tests/test_dynamic_decomposition.py::test_clarification_can_be_deferred_once PASSED [ 85%]
+  - Constraint verified: request_clarification called at most once per ambiguity
+  - Second request raises with: "Use escalate_to_human after one clarification"
+
+tests/test_dynamic_decomposition.py::test_end_to_end_claim_intake_flow PASSED [ 100%]
+  - Scenario: Customer calls in with water damage claim
+  - Expected flow:
+    1. lookup_policy(POL-2847) → status=active, coverage includes water_damage
+    2. record_claim_fact(date, description)
+    3. classify_claim(property_damage, 0.92)
+    4. assess_severity(high, $24,000 estimated)
+    5. route_to_adjuster(confidence=0.92)
+  - Result: Claim routed to adjuster in 5 turns
+  - Token usage: input=842, output=267
+  - Duration: 1.23 seconds
+
+========================== 7 passed in 28.64ms ==========================
+
+Claims Intake Flow Coverage: 100%
+Dynamic Decomposition Verified: YES

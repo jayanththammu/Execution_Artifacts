@@ -1,0 +1,6 @@
+{"timestamp": "2026-04-30T14:00:15Z", "shift_id": "SHIFT-2026-04-30-A", "checkpoint": "setup", "status": "COMPLETE", "details": "Loaded hot state from disk, initialized Claude client, set token budget to 50K"}
+{"timestamp": "2026-04-30T14:00:42Z", "shift_id": "SHIFT-2026-04-30-A", "checkpoint": "defect_filtering", "status": "COMPLETE", "details": "Queried warm store: 10 new defects since last run, filtered by shift_id=SHIFT-2026-04-30-A"}
+{"timestamp": "2026-04-30T14:01:08Z", "shift_id": "SHIFT-2026-04-30-A", "checkpoint": "prompt_assembly", "status": "COMPLETE", "details": "Built thin prompt context (only recent defects + hot state summary), 358 tokens"}
+{"timestamp": "2026-04-30T14:01:25Z", "shift_id": "SHIFT-2026-04-30-A", "checkpoint": "claude_invocation", "status": "COMPLETE", "details": "Called Claude, received analysis of defect patterns, identified C-7 alert, input=358, output=89, latency=523ms"}
+{"timestamp": "2026-04-30T14:01:40Z", "shift_id": "SHIFT-2026-04-30-A", "checkpoint": "processing", "status": "COMPLETE", "details": "Updated hot state with alert, marked 10 defects processed, findings_count=7"}
+{"timestamp": "2026-04-30T14:01:42Z", "shift_id": "SHIFT-2026-04-30-A", "checkpoint": "atomic_write", "status": "COMPLETE", "details": "Wrote hot state atomically, manifest appended with fsync, shift complete"}

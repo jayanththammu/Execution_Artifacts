@@ -1,0 +1,86 @@
+{
+  "execution_timestamp": "2026-10-20T14:40:12Z",
+  "conversation_length": 20,
+  "context_engineering_strategy": "case_facts_top + resolved_summaries_middle + active_verbatim_bottom",
+  "uncompressed_baseline": {
+    "total_tokens": 6847,
+    "case_facts_block": 142,
+    "full_conversation_history": 6705,
+    "context_window_utilization_percent": 100.0
+  },
+  "compressed_with_strategy": {
+    "total_tokens": 3797,
+    "breakdown": {
+      "case_facts_block": {
+        "tokens": 142,
+        "source": "Extracted from conversation",
+        "compression_applied": false,
+        "reasoning": "Decision-critical structured data must survive all compressions"
+      },
+      "resolved_segment_1": {
+        "tokens": 487,
+        "original_tokens": 1247,
+        "compression_ratio": 0.61,
+        "issue_opened": "2026-10-01",
+        "issue_closed": "2026-10-05",
+        "summary": "Customer received damaged sweater, initiated return. Replacement shipped 2026-10-05. Issue resolved. Full refund processed."
+      },
+      "resolved_segment_2": {
+        "tokens": 321,
+        "original_tokens": 892,
+        "compression_ratio": 0.64,
+        "issue_opened": "2026-10-08",
+        "issue_closed": "2026-10-12",
+        "summary": "Follow-up contact regarding shipping status. Replacement item delivered 2026-10-10. Customer satisfied, issue closed."
+      },
+      "active_segment": {
+        "tokens": 2847,
+        "original_tokens": 2847,
+        "compression_applied": false,
+        "reasoning": "Recent turns preserved verbatim for model accuracy, recency bias ensures this has full context"
+      }
+    },
+    "context_window_utilization_percent": 55.4
+  },
+  "savings_analysis": {
+    "total_tokens_saved": 3050,
+    "percent_saved": 44.5,
+    "tokens_recovered": 3050,
+    "utilization_before": 100.0,
+    "utilization_after": 55.4,
+    "headroom_created_percent": 44.6
+  },
+  "compression_quality_scores": {
+    "case_facts_preservation": 1.0,
+    "resolved_segment_1": 0.94,
+    "resolved_segment_2": 0.96,
+    "active_segment_fidelity": 1.0,
+    "overall_quality": 0.97
+  },
+  "scaling_projection": {
+    "turns_supported_uncompressed": 12,
+    "turns_supported_compressed": 40,
+    "capacity_multiplication": 3.33
+  },
+  "per_segment_metrics": {
+    "segment_1": {
+      "compression_method": "LLM summarization with template",
+      "compression_loss_percent": 61.0,
+      "quality_preservation": 0.94,
+      "decision_bearing_info_preserved": true
+    },
+    "segment_2": {
+      "compression_method": "LLM summarization with template",
+      "compression_loss_percent": 64.0,
+      "quality_preservation": 0.96,
+      "decision_bearing_info_preserved": true
+    }
+  },
+  "context_window_allocation": {
+    "recommended_max_context_size": 200000,
+    "safety_margin_percent": 10.0,
+    "recommended_working_size": 180000,
+    "compressed_strategy_utilization": 3797,
+    "estimated_turns_before_overflow": 50
+  }
+}

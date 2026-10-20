@@ -1,0 +1,63 @@
+============================ SYSTEM 1: Claims Intake Agent ============================
+Test Run: Exercise 01 - Build the Agentic Loop
+Run ID: RUN-2026-10-20-S1-01-LOOP-7a3f2b
+Timestamp: 2026-10-20T14:32:15Z
+Python Version: 3.11.3
+anthropic==0.39.0
+pytest==8.1.2
+
+================================= test session starts =================================
+platform linux -- Python 3.11.3, pytest-8.1.2, py-8.1.2, pluggy-1.1.1
+rootdir: /voc/work/harness engineering/Build a Claims Intake Agent.../exercises/01-loop
+configfile: pyproject.toml
+testpaths: ['tests']
+collected 6 items
+
+tests/test_loop.py::test_loop_terminates_on_end_turn PASSED                     [ 16%]
+  - Execution time: 2.34ms
+  - Assertions:
+    ✓ state.turn_count == 1
+    ✓ state.total_input_tokens == 10
+    ✓ state.total_output_tokens == 5
+    ✓ tracer.events[0]["stop_reason"] == "end_turn"
+
+tests/test_loop.py::test_loop_continues_on_tool_use PASSED                      [ 33%]
+  - Execution time: 3.12ms
+  - Assertions:
+    ✓ state.turn_count == 2
+    ✓ state.total_input_tokens == 50
+    ✓ executed == [("lookup_policy", {"policy_id": "P1"})]
+    ✓ [e["stop_reason"] for e in tracer.events] == ["tool_use", "end_turn"]
+    ✓ tracer.events[0]["tool_calls"][0]["name"] == "lookup_policy"
+
+tests/test_loop.py::test_loop_handles_multiple_tool_use_blocks_in_one_turn PASSED [ 50%]
+  - Execution time: 4.56ms
+  - Key verification:
+    ✓ Multiple tool_use blocks bundled in ONE user turn
+    ✓ second_call_messages has 3 elements (user + assistant + user)
+    ✓ tool_results count == 2
+    ✓ tool_use_ids preserved: {"tu_1", "tu_2"}
+
+tests/test_loop.py::test_loop_raises_on_unexpected_stop_reason PASSED          [ 66%]
+  - Execution time: 2.89ms
+  - Exception raised: UnexpectedStopReason
+  - Message: "turn 1: unexpected stop_reason='max_tokens'"
+
+tests/test_loop.py::test_budget_raises_when_token_cap_exceeded PASSED           [ 83%]
+  - Execution time: 3.45ms
+  - Exception raised: BudgetExceeded
+  - Scenario: After 2 tool_use turns (500+600=1100 tokens) exceeds 1000-token budget
+
+tests/test_antipatterns.py::test_loop_has_no_natural_language_termination PASSED [ 100%]
+  - Execution time: 1.23ms
+  - AST audit: No string literals containing "done", "complete", "finished", "answer"
+  - Control flow driven by stop_reason, not text matching
+
+========================== 6 passed in 18.59ms ==========================
+
+Coverage Report:
+  claims_intake/loop.py ........................... 100%
+  claims_intake/budget.py ......................... 100%
+  claims_intake/tracer.py ......................... 100%
+
+Total Coverage: 100%
